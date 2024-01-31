@@ -1,92 +1,87 @@
-import {StyleSheet, View, Text, Button, FlatList, Dimensions} from 'react-native';
 import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import axios from "axios";
-import {useEffect, useState} from "react";
-import DataCard from "./components/DataCard";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-function HomeScreen() {
-    const [dataList, setDataList] = useState([]);
-    const [nextPage, setNextPage] = useState('https://pokeapi.co/api/v2/pokemon?limit=20');
+//Screens & Stuff
+import HomeScreen from "./views/HomeScreen";
+import DetailsScreen from "./views/DetailsScreen";
+import TeamScreen from "./views/TeamScreen";
+import {globals} from "./utils/globals";
 
-    useEffect (() => {
-        loadData(nextPage);
-    }, [])
 
-    const loadData = (url) => {
-        axios.get(url).then((data) => {
-            setDataList([...dataList, ...data.data.results]);
-            setNextPage(data.data.next);
-        })
-    }
 
-    const Item = ({item}) => (
-        <View style={styles.item}>
-            <DataCard detailUrl={item.url}></DataCard>
-            <Text style={styles.title}>{item.name}</Text>
-        </View>
-    );
-
+// Stack Navigation
+const Stack = createNativeStackNavigator();
+function HomeStack() {
     return (
-        <View style={styles.global}>
-            <FlatList
-                data={dataList}
-                numColumns={2}
-                onEndReached={() => loadData(nextPage)}
-                onEndReachedThreshold={0.5}
-                renderItem={({item}) => <Item item={item}/>}
-                keyExtractor={item => item.id}
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+            <Stack.Screen
+                name={globals.homeStackName}
+                component={HomeScreen}
+                options={{
+                    title: globals.homeTitle,
+                }}
             />
-        </View>
+            <Stack.Screen
+                name={globals.detailStackName}
+                component={DetailsScreen}
+                options={{
+                    title: globals.detailTitle,
+                }}
+            />
+        </Stack.Navigator>
     );
 }
 
-const Stack = createNativeStackNavigator();
-function MyStacks() {
+// Tab Navigation
+const Tab = createBottomTabNavigator();
+function MyTabs() {
     return (
-        <Stack.Navigator>
-            <Stack.Screen
-                name="API Pokemon"
-                component={HomeScreen}
+        <Tab.Navigator screenOptions={({ route }) => ({
+            tabBarIcon: ({ color, size }) => {
+                const icons = {
+                    [globals.homeTabName]: 'home',
+                    [globals.searchTabName]: 'magnify',
+                    [globals.teamTabName]: 'pokeball',
+                    [globals.paramsTabName]: 'cog',
+                };
+
+                return (
+                    <MaterialCommunityIcons
+                        name={icons[route.name]}
+                        color={color}
+                        size={size}
+                    />
+                );
+            },
+            tabBarLabel:() => {return null},
+            headerShown: false
+        })}>
+            <Tab.Screen
+                name={globals.homeTabName}
+                component={HomeStack}
             />
-        </Stack.Navigator>
+            <Tab.Screen
+                name={globals.searchTabName}
+                component={TeamScreen}
+            />
+            <Tab.Screen
+                name={globals.teamTabName}
+                component={TeamScreen}
+            />
+            <Tab.Screen
+                name={globals.paramsTabName}
+                component={TeamScreen}
+            />
+        </Tab.Navigator>
     );
 }
 
 export default function App() {
   return (
       <NavigationContainer>
-        <MyStacks/>
+        <MyTabs/>
       </NavigationContainer>
   );
 }
-
-const {height} = Dimensions.get('window');
-const styles = StyleSheet.create({
-    global: {
-        flex: 1,
-        height: height,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#FF1617',
-        paddingTop: 20
-    },
-    item: {
-        backgroundColor: '#fff',
-        width: 150,
-        margin: 10,
-        padding: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 10,
-        height: 200,
-    },
-    title: {
-        color: 'black',
-        fontSize: 15,
-        textTransform: 'capitalize'
-    }
-
-
-});
