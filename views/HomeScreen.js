@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Dimensions, FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import axios from "axios";
 
 //Screens & Stuff
 import DataCard from "../components/DataCard";
 import {globals} from "../utils/globals";
 import Header from "../components/Header";
+import {LinearGradient} from "expo-linear-gradient";
 
 export default function HomeScreen({navigation}) {
     const [dataList, setDataList] = useState([]);
@@ -37,7 +38,10 @@ export default function HomeScreen({navigation}) {
     return (
         <>
             <Header></Header>
-            <View style={styles.global}>
+            <LinearGradient
+                colors={['#eee7ff', '#c1d6f6']}
+                style={styles.global}
+            >
                 <FlatList
                     data={dataList}
                     numColumns={3}
@@ -46,7 +50,7 @@ export default function HomeScreen({navigation}) {
                     renderItem={({item}) => <Item item={item}/>}
                     keyExtractor={item => item.id}
                 />
-            </View>
+            </LinearGradient>
         </>
     );
 }
@@ -58,12 +62,11 @@ const styles = StyleSheet.create({
         height: height,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'rgb(246,237,253)',
         paddingTop: 20,
         paddingHorizontal: 10
     },
     item: {
-        backgroundColor: '#fff',
+        backgroundColor: 'rgba(255,255,255,0.3)',
         width: 110,
         margin: 5,
         padding: 10,
