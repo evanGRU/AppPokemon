@@ -3,12 +3,10 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 
 export default function DataCard({detailUrl}) {
-    const [dataDetail, setDataDetail] = useState({});
     const [dataImage, setDataImage] = useState();
 
     useEffect (() => {
         const result = axios.get(detailUrl).then((data) => {
-            setDataDetail(data.data);
             setDataImage(data.data.sprites.other.home.front_default);
         })
     }, [detailUrl])
@@ -21,7 +19,6 @@ export default function DataCard({detailUrl}) {
             : <Image
                 style={styles.homePicture}
                 source={require('../assets/defaultPokemon.png')}
-
             />
     );
 }
