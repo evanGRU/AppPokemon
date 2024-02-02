@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {globals} from "../utils/globals";
 import {LinearGradient} from "expo-linear-gradient";
+import PokemonTypes from "../components/PokemonTypes";
 
 export default function DetailsScreen({route, navigation}) {
     const {item} = route.params;
@@ -26,7 +27,7 @@ export default function DetailsScreen({route, navigation}) {
         );
     }
 
-    return (
+    return dataDetail && (
         <LinearGradient
             colors={['#2f2fd2', '#896bd8', '#9882d0']}
             style={styles.globalDetail}
@@ -56,22 +57,26 @@ export default function DetailsScreen({route, navigation}) {
                 </View>
                 <View style={styles.characteristicsContainer}>
                     <View style={styles.characteristicsElement}>
-                        <Text style={styles.characteristicsH1}>{roundValue(dataDetail.weight)}kg</Text>
+                        <Text style={styles.characteristicsH1}>
+                            {roundValue(dataDetail.weight)}kg
+                        </Text>
                         <Text style={styles.characteristicsH2}>Poids</Text>
                     </View>
                     <View style={styles.characteristicsLine}/>
                     <View style={styles.characteristicsElement}>
-                        <Text style={styles.characteristicsH1}></Text>
+                        <View style={styles.characteristicsH1}>
+                            <PokemonTypes pokemonTypesData={dataDetail.types}/>
+                        </View>
                         <Text style={styles.characteristicsH2}>Types</Text>
                     </View>
                     <View style={styles.characteristicsLine}/>
                     <View style={styles.characteristicsElement}>
-                        <Text style={styles.characteristicsH1}>{roundValue(dataDetail.height)}m</Text>
+                        <Text style={styles.characteristicsH1}>
+                            {roundValue(dataDetail.height)}m
+                        </Text>
                         <Text style={styles.characteristicsH2}>Taille</Text>
                     </View>
                 </View>
-
-
             </View>
         </LinearGradient>
     );
@@ -146,7 +151,6 @@ const styles = StyleSheet.create({
     },
 
     characteristicsContainer: {
-        // backgroundColor: 'red',
         paddingVertical: 40,
         flexDirection: 'row',
         justifyContent: "center",
@@ -157,9 +161,11 @@ const styles = StyleSheet.create({
     },
     characteristicsH1: {
         color: '#4C666B',
-        fontSize: 18,
+        fontSize: 22,
         fontWeight: '600',
-        height: 25
+        height: 30,
+        position: "relative",
+        alignItems: "center"
     },
     characteristicsH2: {
         color: 'rgba(76,102,107,0.52)',
