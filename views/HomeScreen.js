@@ -37,7 +37,7 @@ export default function HomeScreen({navigation}) {
 
     return (
         <>
-            <Header></Header>
+            <Header title={'POKÉDEX'}></Header>
             <LinearGradient
                 colors={['#eee7ff', '#c1d6f6']}
                 style={styles.global}
@@ -48,7 +48,6 @@ export default function HomeScreen({navigation}) {
                     onEndReached={() => loadData(nextPage)}
                     onEndReachedThreshold={0.5}
                     renderItem={({item}) => <Item item={item}/>}
-                    keyExtractor={item => item.id}
                 />
             </LinearGradient>
         </>

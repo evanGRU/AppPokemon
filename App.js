@@ -8,6 +8,7 @@ import HomeScreen from "./views/HomeScreen";
 import DetailsScreen from "./views/DetailsScreen";
 import TeamScreen from "./views/TeamScreen";
 import {globals} from "./utils/globals";
+import SearchScreen from "./views/SearchScreen";
 
 
 
@@ -64,7 +65,7 @@ function MyTabs() {
             />
             <Tab.Screen
                 name={globals.searchTabName}
-                component={TeamScreen}
+                component={SearchScreen}
             />
             <Tab.Screen
                 name={globals.teamTabName}

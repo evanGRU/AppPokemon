@@ -9,8 +9,8 @@ export default function DetailsScreen({route, navigation}) {
     const {item} = route.params;
 
     const defaultUrl = item.url;
-    const [dataDetail, setDataDetail] = useState({});
-    const [dataImage, setDataImage] = useState();
+    const [dataDetail, setDataDetail] = useState(defaultUrl ? {} : item);
+    const [dataImage, setDataImage] = useState(defaultUrl ? null : item.sprites.other.home.front_default);
 
     const [isOnFavorite, setIsOnFavorite] = useState(false);
 
