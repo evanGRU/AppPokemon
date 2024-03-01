@@ -4,6 +4,7 @@ import axios from "axios";
 import {globals} from "../utils/globals";
 import {LinearGradient} from "expo-linear-gradient";
 import PokemonTypes from "../components/PokemonTypes";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function DetailsScreen({route, navigation}) {
     const {item} = route.params;
@@ -27,6 +28,22 @@ export default function DetailsScreen({route, navigation}) {
         );
     }
 
+    const storeData = async (dataDetail) => {
+        try {
+            console.log('start stored');
+            await AsyncStorage.setItem(
+                'POKEMON',
+                'aa',
+            );
+            console.log('stored');
+        } catch (error) {
+            // Error saving data
+        }
+    };
+
+    useEffect(() => {
+        isOnFavorite && storeData(dataDetail);
+    }, [isOnFavorite])
     return dataDetail && (
         <LinearGradient
             colors={['#2f2fd2', '#896bd8', '#9882d0']}

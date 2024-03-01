@@ -35,7 +35,7 @@ export default function SearchScreen({navigation}) {
 
     return (
         <>
-            <Header title={'RECHERCHE'}></Header>
+            <Header title={'RECHERCHER'}></Header>
             <LinearGradient
                 colors={['#eee7ff', '#c1d6f6']}
                 style={styles.global}

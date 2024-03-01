@@ -64,12 +64,12 @@ function MyTabs() {
                 component={HomeStack}
             />
             <Tab.Screen
-                name={globals.searchTabName}
-                component={SearchScreen}
-            />
-            <Tab.Screen
                 name={globals.teamTabName}
                 component={TeamScreen}
+            />
+            <Tab.Screen
+                name={globals.searchTabName}
+                component={SearchScreen}
             />
             <Tab.Screen
                 name={globals.paramsTabName}
