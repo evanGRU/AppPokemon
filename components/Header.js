@@ -1,13 +1,13 @@
 import {StyleSheet, Text} from 'react-native';
 import {LinearGradient} from "expo-linear-gradient";
 
-export default function Header() {
+export default function Header({title}) {
     return (
         <LinearGradient
             colors={['#fdfdfe', '#eee7ff']}
             style={styles.headerContainer}
         >
-            <Text style={styles.headerTitle}>POKÉDEX</Text>
+            <Text style={styles.headerTitle}>{title}</Text>
         </LinearGradient>
     );
 }
