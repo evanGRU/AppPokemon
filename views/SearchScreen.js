@@ -65,7 +65,7 @@ export default function SearchScreen({navigation}) {
                             <TouchableOpacity
                                 key={data?.data.id}
                                 onPress={() => {
-                                    navigation.navigate(globals.detailStackName, {
+                                    navigation.navigate(globals.searchDetailStackName, {
                                         item: data.data
                                     });
                                     setSearch('');

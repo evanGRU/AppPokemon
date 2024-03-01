@@ -50,7 +50,10 @@ export default function DetailsScreen({route, navigation}) {
             style={styles.globalDetail}
         >
             <View style={styles.detailHeader}>
-                <TouchableOpacity onPress={()=>navigation.navigate(globals.homeStackName)}>
+                <TouchableOpacity
+                    style={{width: 50, height: 50}}
+                    onPress={()=>navigation.navigate(route.name === 'HomeDetailsStack' ? 'HomeStack' : 'SearchStack')}
+                >
                     <Image
                         source={require('../assets/arrow_backward.png')}
                     ></Image>

@@ -4,7 +4,7 @@ export const globals = {
     teamTabName: "TeamTab",
     paramsTabName: "SettingsTab",
     homeStackName: "HomeStack",
-    detailStackName: "DetailsStack",
-    homeTitle: "Pokédex",
-    detailTitle: "Fiche Pokédex"
+    homeDetailStackName: "HomeDetailsStack",
+    searchStackName: "SearchStack",
+    searchDetailStackName: "SearchDetailsStack",
 }

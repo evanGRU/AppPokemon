@@ -25,7 +25,7 @@ export default function HomeScreen({navigation}) {
     const Item = ({item}) => (
         <TouchableOpacity
             key={item.id}
-            onPress={() => navigation.navigate(globals.detailStackName, {
+            onPress={() => navigation.navigate(globals.homeDetailStackName, {
                 item: item
             })}
         >
