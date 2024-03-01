@@ -13,7 +13,7 @@ export default function SearchScreen({navigation}) {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null)
 
-    const debouncedSearch = useDebounce(nextValue => setSaveSearch(nextValue), 1000);
+    const debouncedSearch = useDebounce(nextValue => setSaveSearch(nextValue), 800);
 
     const handleChange = (value) => {
         setSearch(value);
@@ -44,33 +44,35 @@ export default function SearchScreen({navigation}) {
                     onChangeText={(value) => {handleChange(value)}}
                     onCancel={() => setSearch(null)}
                     value={search}
-                    placeholder="Bulbasaur, charizard, weedle..."
+                    placeholder="Pikachu, Charizard, Mewtwo..."
                     containerStyle={styles.searchBarContainer}
                     inputContainerStyle={styles.searchBarInput}
                     lightTheme={true}
                 />
-                {/*{*/}
-                {/*    error ? <Text>{error}</Text>*/}
-                {/*        : data &&*/}
-                {/*        (*/}
-                {/*            */}
-                {/*        )*/}
-                {/*}*/}
-                {
-                    error &&
-                    (
-                        <Text>{error}</Text>
-                    )
-                }
+
                 <View style={styles.searchContainer}>
+                    {
+                        error &&
+                        (
+                            <View style={styles.resultCardContainer}>
+                                <Text style={styles.errorText}>{error}</Text>
+                            </View>
+                        )
+                    }
                     {
                         data &&
                         (
                             <TouchableOpacity
                                 key={data?.data.id}
-                                onPress={() => navigation.navigate(globals.detailStackName, {
-                                    item: data.data
-                                })}
+                                onPress={() => {
+                                    navigation.navigate(globals.detailStackName, {
+                                        item: data.data
+                                    });
+                                    setSearch('');
+                                    setSaveSearch('');
+                                    setData(null);
+                                }
+                                }
                             >
                                 <View style={styles.resultCardContainer}>
                                     <Image
@@ -125,6 +127,12 @@ const styles = StyleSheet.create({
         height: 200,
     },
 
+    errorText: {
+        color: '#4C666B',
+        fontWeight: '600',
+        fontSize: 16,
+        padding: 10
+    },
 
     resultCardContainer: {
         backgroundColor: '#fff',
@@ -156,5 +164,5 @@ const styles = StyleSheet.create({
         color: '#4C666B',
         fontWeight: '600',
         fontSize: 20,
-    }
+    },
 });
