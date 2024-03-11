@@ -11,6 +11,8 @@ export const globals = {
     teamDetailStackName: "TeamDetailsStack",
     searchStackName: "SearchStack",
     searchDetailStackName: "SearchDetailsStack",
+    paramsStackName: "SettingsStack",
+    paramsCameraStackName: "SettingsCameraStack",
 }
 
 export const teamKeys = ['TEAM1', 'TEAM2', 'TEAM3', 'TEAM4', 'TEAM5', 'TEAM6'];

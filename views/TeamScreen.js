@@ -90,11 +90,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
     },
     teamDeleteButtonContainer: {
-        borderRadius: 20,
+        borderRadius: 10,
         width: '75%'
     },
     teamDeleteButton: {
-        backgroundColor: '#bb0000',
+        backgroundColor: '#d75656',
         padding: 20,
     },
     teamPicture: {
@@ -102,9 +102,9 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     teamRefreshContainer: {
-        backgroundColor: '#002A51',
+        backgroundColor: '#896bd8',
         padding: 20,
-        borderRadius: 20,
+        borderRadius: 10,
         height: 65,
         width: 70
 

@@ -9,6 +9,8 @@ import DetailsScreen from "./views/DetailsScreen";
 import TeamScreen from "./views/TeamScreen";
 import {globals} from "./utils/globals";
 import SearchScreen from "./views/SearchScreen";
+import SettingsScreen from "./views/SettingsScreen";
+import CameraScreen from "./views/CameraScreen";
 
 
 
@@ -59,6 +61,21 @@ function SearchStack() {
     );
 }
 
+function SettingsStack() {
+    return (
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+            <Stack.Screen
+                name={globals.paramsStackName}
+                component={SettingsScreen}
+            />
+            <Stack.Screen
+                name={globals.paramsCameraStackName}
+                component={CameraScreen}
+            />
+        </Stack.Navigator>
+    );
+}
+
 // Tab Navigation
 const Tab = createBottomTabNavigator();
 function MyTabs() {
@@ -97,7 +114,7 @@ function MyTabs() {
             />
             <Tab.Screen
                 name={globals.paramsTabName}
-                component={TeamScreen}
+                component={SettingsStack}
             />
         </Tab.Navigator>
     );
