@@ -1,9 +1,9 @@
 import {Dimensions, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {globals} from "../utils/globals";
 import {LinearGradient} from "expo-linear-gradient";
-import PokemonTypes from "../components/PokemonTypes";
+import DetailPokemonTypes from "../components/DetailPokemonTypes";
+import StorageModal from "../components/modals/StorageModal";
 
 export default function DetailsScreen({route, navigation}) {
     const {item} = route.params;
@@ -13,6 +13,7 @@ export default function DetailsScreen({route, navigation}) {
     const [dataImage, setDataImage] = useState(defaultUrl ? null : item.sprites.other.home.front_default);
 
     const [isOnFavorite, setIsOnFavorite] = useState(false);
+    const [hideModal, setHideModal] = useState(true);
 
     useEffect (() => {
         axios.get(defaultUrl).then((data) => {
@@ -27,20 +28,42 @@ export default function DetailsScreen({route, navigation}) {
         );
     }
 
+    const backButtonRoute = () => {
+        switch (route.name) {
+            case 'SearchDetailsStack':
+                return 'SearchStack'
+            case 'TeamDetailsStack':
+                return 'TeamStack'
+            default:
+                return 'HomeStack'
+        }
+    }
+
     return dataDetail && (
         <LinearGradient
             colors={['#2f2fd2', '#896bd8', '#9882d0']}
             style={styles.globalDetail}
         >
             <View style={styles.detailHeader}>
-                <TouchableOpacity onPress={()=>navigation.navigate(globals.homeStackName)}>
+                <TouchableOpacity
+                    style={{width: 50, height: 50}}
+                    onPress={()=>navigation.navigate(backButtonRoute())}
+                >
                     <Image
+                        style={{width: 40, height: 30}}
                         source={require('../assets/arrow_backward.png')}
                     ></Image>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>setIsOnFavorite(!isOnFavorite)}>
+                <TouchableOpacity
+                    style={{width: 50, height: 50, alignItems: 'flex-end'}}
+                    onPress={()=> {
+                        setIsOnFavorite(!isOnFavorite);
+                        setHideModal(!hideModal);
+                    }}
+                >
                     <Image
-                        source={isOnFavorite ? require('../assets/star_fill.png') : require('../assets/star.png')}
+                        style={{width: 40, height: 40}}
+                        source={require('../assets/plus_circle.png')}
                     ></Image>
                 </TouchableOpacity>
             </View>
@@ -65,7 +88,7 @@ export default function DetailsScreen({route, navigation}) {
                     <View style={styles.characteristicsLine}/>
                     <View style={styles.characteristicsElement}>
                         <View style={styles.characteristicsH1}>
-                            <PokemonTypes pokemonTypesData={dataDetail.types}/>
+                            <DetailPokemonTypes pokemonTypesData={dataDetail.types}/>
                         </View>
                         <Text style={styles.characteristicsH2}>Types</Text>
                     </View>
@@ -78,7 +101,15 @@ export default function DetailsScreen({route, navigation}) {
                     </View>
                 </View>
             </View>
+
+            <StorageModal
+                hideModal={hideModal}
+                setHideModal={setHideModal}
+                data={dataDetail}
+                dataImage={dataImage}
+            />
         </LinearGradient>
+
     );
 }
 

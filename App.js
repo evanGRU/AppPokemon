@@ -20,16 +20,40 @@ function HomeStack() {
             <Stack.Screen
                 name={globals.homeStackName}
                 component={HomeScreen}
-                options={{
-                    title: globals.homeTitle,
-                }}
             />
             <Stack.Screen
-                name={globals.detailStackName}
+                name={globals.homeDetailStackName}
                 component={DetailsScreen}
-                options={{
-                    title: globals.detailTitle,
-                }}
+            />
+        </Stack.Navigator>
+    );
+}
+
+function TeamStack() {
+    return (
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+            <Stack.Screen
+                name={globals.teamStackName}
+                component={TeamScreen}
+            />
+            <Stack.Screen
+                name={globals.teamDetailStackName}
+                component={DetailsScreen}
+            />
+        </Stack.Navigator>
+    );
+}
+
+function SearchStack() {
+    return (
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+            <Stack.Screen
+                name={globals.searchStackName}
+                component={SearchScreen}
+            />
+            <Stack.Screen
+                name={globals.searchDetailStackName}
+                component={DetailsScreen}
             />
         </Stack.Navigator>
     );
@@ -64,12 +88,12 @@ function MyTabs() {
                 component={HomeStack}
             />
             <Tab.Screen
-                name={globals.searchTabName}
-                component={SearchScreen}
+                name={globals.teamTabName}
+                component={TeamStack}
             />
             <Tab.Screen
-                name={globals.teamTabName}
-                component={TeamScreen}
+                name={globals.searchTabName}
+                component={SearchStack}
             />
             <Tab.Screen
                 name={globals.paramsTabName}

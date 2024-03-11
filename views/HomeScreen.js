@@ -3,7 +3,7 @@ import {Dimensions, FlatList, StyleSheet, TouchableOpacity, View} from 'react-na
 import axios from "axios";
 
 //Screens & Stuff
-import DataCard from "../components/DataCard";
+import HomeDataCard from "../components/HomeDataCard";
 import {globals} from "../utils/globals";
 import Header from "../components/Header";
 import {LinearGradient} from "expo-linear-gradient";
@@ -25,12 +25,12 @@ export default function HomeScreen({navigation}) {
     const Item = ({item}) => (
         <TouchableOpacity
             key={item.id}
-            onPress={() => navigation.navigate(globals.detailStackName, {
+            onPress={() => navigation.navigate(globals.homeDetailStackName, {
                 item: item
             })}
         >
             <View style={styles.item}>
-                <DataCard detailUrl={item.url}></DataCard>
+                <HomeDataCard detailUrl={item.url}></HomeDataCard>
             </View>
         </TouchableOpacity>
     );

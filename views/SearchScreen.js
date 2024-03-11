@@ -35,7 +35,7 @@ export default function SearchScreen({navigation}) {
 
     return (
         <>
-            <Header title={'RECHERCHE'}></Header>
+            <Header title={'RECHERCHER'}></Header>
             <LinearGradient
                 colors={['#eee7ff', '#c1d6f6']}
                 style={styles.global}
@@ -65,11 +65,10 @@ export default function SearchScreen({navigation}) {
                             <TouchableOpacity
                                 key={data?.data.id}
                                 onPress={() => {
-                                    navigation.navigate(globals.detailStackName, {
+                                    navigation.navigate(globals.searchDetailStackName, {
                                         item: data.data
                                     });
                                     setSearch('');
-                                    setSaveSearch('');
                                     setData(null);
                                 }
                                 }

@@ -1,6 +1,6 @@
 import {Image, StyleSheet, View} from 'react-native';
 
-export default function PokemonTypes(pokemonTypesData) {
+export default function DetailPokemonTypes(pokemonTypesData) {
     const pokemonTypes = pokemonTypesData.pokemonTypesData !== undefined && [...pokemonTypesData.pokemonTypesData];
 
     if (pokemonTypes){

@@ -4,7 +4,11 @@ export const globals = {
     teamTabName: "TeamTab",
     paramsTabName: "SettingsTab",
     homeStackName: "HomeStack",
-    detailStackName: "DetailsStack",
-    homeTitle: "Pokédex",
-    detailTitle: "Fiche Pokédex"
+    homeDetailStackName: "HomeDetailsStack",
+    teamStackName: "TeamStack",
+    teamDetailStackName: "TeamDetailsStack",
+    searchStackName: "SearchStack",
+    searchDetailStackName: "SearchDetailsStack",
 }
+
+export const teamKeys = ['TEAM1', 'TEAM2', 'TEAM3', 'TEAM4', 'TEAM5', 'TEAM6'];
