@@ -2,7 +2,7 @@ import {Dimensions, Image, StyleSheet, Text, TouchableOpacity, View} from 'react
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {LinearGradient} from "expo-linear-gradient";
-import PokemonTypes from "../components/PokemonTypes";
+import DetailPokemonTypes from "../components/DetailPokemonTypes";
 import StorageModal from "../components/modals/StorageModal";
 
 export default function DetailsScreen({route, navigation}) {
@@ -28,6 +28,17 @@ export default function DetailsScreen({route, navigation}) {
         );
     }
 
+    const backButtonRoute = () => {
+        switch (route.name) {
+            case 'SearchDetailsStack':
+                return 'SearchStack'
+            case 'TeamDetailsStack':
+                return 'TeamStack'
+            default:
+                return 'HomeStack'
+        }
+    }
+
     return dataDetail && (
         <LinearGradient
             colors={['#2f2fd2', '#896bd8', '#9882d0']}
@@ -36,7 +47,7 @@ export default function DetailsScreen({route, navigation}) {
             <View style={styles.detailHeader}>
                 <TouchableOpacity
                     style={{width: 50, height: 50}}
-                    onPress={()=>navigation.navigate(route.name === 'HomeDetailsStack' ? 'HomeStack' : 'SearchStack')}
+                    onPress={()=>navigation.navigate(backButtonRoute())}
                 >
                     <Image
                         style={{width: 40, height: 30}}
@@ -77,7 +88,7 @@ export default function DetailsScreen({route, navigation}) {
                     <View style={styles.characteristicsLine}/>
                     <View style={styles.characteristicsElement}>
                         <View style={styles.characteristicsH1}>
-                            <PokemonTypes pokemonTypesData={dataDetail.types}/>
+                            <DetailPokemonTypes pokemonTypesData={dataDetail.types}/>
                         </View>
                         <Text style={styles.characteristicsH2}>Types</Text>
                     </View>

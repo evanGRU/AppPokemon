@@ -2,7 +2,7 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useEffect, useState} from "react";
 import {fetchStorage, storeValue} from "../utils/storageManager";
 
-export default function StorePokemonButton({data, storageKey}) {
+export default function DetailStorePokemonButton({data, storageKey}) {
     const [valueStored, setValueStored] = useState(null);
 
     const fetchData = async () => {

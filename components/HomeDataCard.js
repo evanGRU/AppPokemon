@@ -2,7 +2,7 @@ import {StyleSheet, Image} from 'react-native';
 import axios from "axios";
 import {useEffect, useState} from "react";
 
-export default function DataCard({detailUrl}) {
+export default function HomeDataCard({detailUrl}) {
     const [dataImage, setDataImage] = useState();
 
     useEffect (() => {

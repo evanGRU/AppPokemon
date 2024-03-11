@@ -29,6 +29,21 @@ function HomeStack() {
     );
 }
 
+function TeamStack() {
+    return (
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+            <Stack.Screen
+                name={globals.teamStackName}
+                component={TeamScreen}
+            />
+            <Stack.Screen
+                name={globals.teamDetailStackName}
+                component={DetailsScreen}
+            />
+        </Stack.Navigator>
+    );
+}
+
 function SearchStack() {
     return (
         <Stack.Navigator screenOptions={{headerShown: false}}>
@@ -74,7 +89,7 @@ function MyTabs() {
             />
             <Tab.Screen
                 name={globals.teamTabName}
-                component={TeamScreen}
+                component={TeamStack}
             />
             <Tab.Screen
                 name={globals.searchTabName}
