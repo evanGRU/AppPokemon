@@ -1,28 +1,28 @@
 import React, {useEffect, useState} from "react";
-import {Dimensions, StyleSheet} from 'react-native';
+import {Dimensions, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 
 //Screens & Stuff
 import Header from "../components/Header";
 import {LinearGradient} from "expo-linear-gradient";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import {clearStorage} from "../utils/storageManager";
+import {teamKeys} from "../utils/globals";
+import TeamStorePokemonCard from "../components/TeamStorePokemonCard";
+import {Button} from "@rneui/base";
 
 export default function TeamScreen({navigation}) {
-    const fetchStorage = async () => {
-        try {
-            const value = await AsyncStorage.getItem('POKEMON');
-            if (value !== null) {
-                // We have data!!
-                console.log(value);
-            }
-        } catch (error) {
-            console.log('error');
-            // Error retrieving data
-        }
-    };
+    const [storedPokemon, setStoredPokemon] = useState([])
+    const setLocalTeam = () => {
+        let defaultTeam = []
+        teamKeys.map((key) => {
+            defaultTeam.push(key)
+        })
+        return defaultTeam;
+    }
 
     useEffect(() => {
-        fetchStorage();
-    }, [])
+        setStoredPokemon(setLocalTeam());
+    }, []);
+
     return (
         <>
             <Header title={'MON ÉQUIPE'}></Header>
@@ -30,6 +30,38 @@ export default function TeamScreen({navigation}) {
                 colors={['#eee7ff', '#c1d6f6']}
                 style={styles.global}
             >
+                <View style={styles.teamContainer}>
+                    {
+                        storedPokemon.map((pokemon) => {
+                            return (
+                                <TeamStorePokemonCard
+                                    storageKey={pokemon}
+                                    navigation={navigation}
+                                />
+                            )
+                        })
+                    }
+                    <View style={styles.teamButtonsContainer}>
+                        <Button
+                            title={'Recommencer mon équipe'}
+                            buttonStyle={styles.teamDeleteButton}
+                            containerStyle={styles.teamDeleteButtonContainer}
+                            onPress={() => {
+                                clearStorage();
+                                setStoredPokemon(setLocalTeam());
+                            }}
+                        />
+                        <TouchableOpacity
+                            style={styles.teamRefreshContainer}
+                            onPress={() => {setStoredPokemon(setLocalTeam());}}
+                        >
+                            <Image
+                                style={styles.teamPicture}
+                                source={require('../assets/arrow_refresh.png')}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                </View>
 
             </LinearGradient>
         </>
@@ -42,18 +74,44 @@ const styles = StyleSheet.create({
         flex: 1,
         height: height,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: "center",
         paddingTop: 20,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
     },
-    item: {
-        backgroundColor: 'rgba(255,255,255,0.3)',
-        width: 110,
-        margin: 5,
-        padding: 10,
-        alignItems: 'center',
+    teamContainer: {
+        height: '100%',
+        width: '100%',
         justifyContent: 'center',
-        borderRadius: 10,
-        height: 110,
+        flexDirection: "row",
+        flexWrap: "wrap",
+        gap: 20,
+    },
+    teamButtonsContainer: {
+        display: "flex",
+        flexDirection: "row",
+        width: '100%',
+        alignItems: "center",
+        justifyContent: "space-between",
+        paddingHorizontal: 10,
+    },
+    teamDeleteButtonContainer: {
+        borderRadius: 20,
+        width: '75%'
+    },
+    teamDeleteButton: {
+        backgroundColor: '#bb0000',
+        padding: 20,
+    },
+    teamPicture: {
+        height: '100%',
+        width: '100%',
+    },
+    teamRefreshContainer: {
+        backgroundColor: '#002A51',
+        padding: 20,
+        borderRadius: 20,
+        height: 65,
+        width: 70
+
     }
 });

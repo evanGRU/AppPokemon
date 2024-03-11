@@ -25,7 +25,16 @@ const storeValue = async (key, valueToStore) => {
     }
 };
 
+const clearStorage = async () => {
+    try {
+        await AsyncStorage.clear();
+    } catch (error) {
+        // Error saving data
+    }
+};
+
 export {
     fetchStorage,
-    storeValue
+    storeValue,
+    clearStorage
 }

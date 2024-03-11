@@ -1,11 +1,10 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from "react";
 import {Button} from "@rneui/base";
-import StorePokemonButton from "../StorePokemonButton";
+import DetailStorePokemonButton from "../DetailStorePokemonButton";
+import {teamKeys} from "../../utils/globals";
 
 export default function StorageModal({hideModal, setHideModal, data}) {
-    const teamKeys = ['TEAM1', 'TEAM2', 'TEAM3', 'TEAM4', 'TEAM5', 'TEAM6'];
-
     return (
         <>
             {
@@ -19,7 +18,7 @@ export default function StorageModal({hideModal, setHideModal, data}) {
                                 {
                                     teamKeys.map((key) => {
                                         return (
-                                            <StorePokemonButton
+                                            <DetailStorePokemonButton
                                                 data={data}
                                                 storageKey={key}
                                             />
@@ -77,6 +76,5 @@ const styles = StyleSheet.create({
     modalCloseButton: {
         borderRadius: 5,
         backgroundColor: '#896bd8'
-
     },
 });

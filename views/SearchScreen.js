@@ -69,7 +69,6 @@ export default function SearchScreen({navigation}) {
                                         item: data.data
                                     });
                                     setSearch('');
-                                    setSaveSearch('');
                                     setData(null);
                                 }
                                 }
