@@ -1,9 +1,9 @@
 import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from "react";
-import {fetchStorage} from "../utils/storageManager";
 import {globals} from "../utils/globals";
+import {fetchStorage} from "../utils/storageManager";
 
-export default function TeamStorePokemonCard({storageKey, navigation}) {
+export default function TeamStorePokemonCard({navigation, storageKey, hasUpdate}) {
     const [valueStored, setValueStored] = useState(null);
 
     const fetchData = async () => {
@@ -12,7 +12,7 @@ export default function TeamStorePokemonCard({storageKey, navigation}) {
 
     useEffect(() => {
         fetchData();
-    }, [storageKey])
+    }, [storageKey, hasUpdate])
 
     return (
         <>

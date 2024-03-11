@@ -1,27 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Dimensions, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 
 //Screens & Stuff
 import Header from "../components/Header";
 import {LinearGradient} from "expo-linear-gradient";
 import {clearStorage} from "../utils/storageManager";
-import {teamKeys} from "../utils/globals";
+import {teamKeys, updateManager} from "../utils/globals";
 import TeamStorePokemonCard from "../components/TeamStorePokemonCard";
 import {Button} from "@rneui/base";
 
 export default function TeamScreen({navigation}) {
-    const [storedPokemon, setStoredPokemon] = useState([])
-    const setLocalTeam = () => {
-        let defaultTeam = []
-        teamKeys.map((key) => {
-            defaultTeam.push(key)
-        })
-        return defaultTeam;
-    }
-
-    useEffect(() => {
-        setStoredPokemon(setLocalTeam());
-    }, []);
+    const {
+        hasUpdate,
+        updateState
+    } = updateManager();
 
     return (
         <>
@@ -32,11 +24,12 @@ export default function TeamScreen({navigation}) {
             >
                 <View style={styles.teamContainer}>
                     {
-                        storedPokemon.map((pokemon) => {
+                        teamKeys.map((key) => {
                             return (
                                 <TeamStorePokemonCard
-                                    storageKey={pokemon}
                                     navigation={navigation}
+                                    storageKey={key}
+                                    hasUpdate={hasUpdate}
                                 />
                             )
                         })
@@ -48,12 +41,14 @@ export default function TeamScreen({navigation}) {
                             containerStyle={styles.teamDeleteButtonContainer}
                             onPress={() => {
                                 clearStorage();
-                                setStoredPokemon(setLocalTeam());
+                                updateState();
                             }}
                         />
                         <TouchableOpacity
                             style={styles.teamRefreshContainer}
-                            onPress={() => {setStoredPokemon(setLocalTeam());}}
+                            onPress={() => {
+                                updateState();
+                            }}
                         >
                             <Image
                                 style={styles.teamPicture}

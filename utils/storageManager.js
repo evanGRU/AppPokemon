@@ -21,7 +21,7 @@ const storeValue = async (key, valueToStore) => {
             JSON.stringify(valueToStore),
         );
     } catch (error) {
-        // Error saving data
+        console.log('error');
     }
 };
 
@@ -29,7 +29,7 @@ const clearStorage = async () => {
     try {
         await AsyncStorage.clear();
     } catch (error) {
-        // Error saving data
+        console.log('error');
     }
 };
 
